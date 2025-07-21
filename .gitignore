@@ -1,0 +1,30 @@
+# Fichiers Python compilés
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environnements virtuels (futur?)
+venv/
+env/
+.venv/
+.env/
+
+# Fichiers journaux
+*.log
+
+# Fichiers temporaires et caches IDE
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Fichiers de sauvegarde ou temporaires
+*.bak
+*.tmp
+
+# fichiers texte (.txt)
+*.txt
+
+# Fichiers de configuration sensibles (à adapter selon ton usage)
+.env
