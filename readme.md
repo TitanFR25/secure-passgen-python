@@ -62,8 +62,5 @@ Sauvegarde du mot de passe et d'autre données dans un fichier.txt
 3. Pour un usage sérieux, préférez un gestionnaire de mots de passe spécialisé (comme Bitwarden, KeePass, 1Password).
 
 4. Ce programme est un projet pédagogique, il ne doit pas être utilisé pour stocker des données sensibles en production.
-### Améliorations prévues
-Oui, ce projet va évoluer avec le temps !
-Je prévois d’ajouter des fonctionnalités et d’améliorer le code dès que j’en aurai l’occasion, ce qui me permettra aussi de renforcer mes connaissances en Python.
 
 Merci d’avoir pris le temps de découvrir ce projet ! N’hésitez pas à le tester et à me faire vos retours. Bonne génération de mots de passe ! 🔐
