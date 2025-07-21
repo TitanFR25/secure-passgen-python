@@ -13,7 +13,7 @@ caractere = lettres + lettreMaj + chiffre + symbole
 
 #On vien verifier si l'utilisateur entre un nombre entier sinon on sort une erreur
 try:
-    longueur = int(input("Quel longueur voulez-vous pour votre mot de passe ? (minimun(10) max(40)):"))
+    longueur = int(input("Quel longueur voulez-vous pour votre mot de passe ? (minimum 10 / maximum 40) :"))
 except ValueError:
     print("Erreur entrer un nombre entier")
     exit()
