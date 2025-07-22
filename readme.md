@@ -20,7 +20,7 @@ Avoir un outil qui le génère automatiquement, en quelques millisecondes, et à
 Si vous ne savez pas comment utiliser Git, voici la commande pour cloner le projet :
 
 ```bash
-git clone https://github.com/votre-nom-utilisateur/nom-du-repo.git
+git clone https://github.com/TitanFR25/secure-passgen-python.git
 cd nom-du-repo
 ```
 Si vous n’avez pas Git installé :
