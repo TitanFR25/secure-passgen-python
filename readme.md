@@ -91,7 +91,7 @@ Mélange totalement aléatoire
 
 2. Proposer une interface graphique simple
 
-3. Enregistrer les mots de passe de façon chiffrée
+3. Enregistrer les mots de passe de façon chiffrée ✅
 
 4. Ajouter une fonctionnalité de vérification de robustesse des mots de passe
 
