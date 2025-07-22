@@ -1,52 +1,50 @@
 import random
 
 def generatePassword():
-    #On definit quel type de caractere on va utiliser
+    # On définit les types de caractères à utiliser
     lettres = "azertyuiopqsdfghjklmwxcvbn"
     lettreMaj = lettres.upper()
-    chiffre = "123456789"
-    symbole = ",.@#$*"
+    chiffres = "123456789"
+    symboles = ",.@#$*"
 
-    #On stock tout sa dans une variable caractere
-    caractere = lettres + lettreMaj + chiffre + symbole
+    # On regroupe tous les caractères possibles dans une seule variable
+    caracteres = lettres + lettreMaj + chiffres + symboles
 
-    #On defini la variable longueur qui definira la longueur du mot de passe que l'utilisateur aura choisis
-
-    #On vien verifier si l'utilisateur entre un nombre entier sinon on sort une erreur
+    # On demande à l'utilisateur la longueur du mot de passe
     try:
-        longueur = int(input("Quel longueur voulez-vous pour votre mot de passe ? (minimum 10 / maximum 40) :"))
+        longueur = int(input("Quelle longueur voulez-vous pour votre mot de passe ? (minimum 10 / maximum 40) : "))
     except ValueError:
-        print("Erreur entrer un nombre entier")
+        print("❌ Erreur : veuillez entrer un nombre entier.")
         exit()
 
-    #On vérifie que la longueur choisis respecte les régle
+    # On vérifie que la longueur choisie respecte les règles
     if longueur < 10 or longueur > 40:
-        print("Erreur le mot de passe doit contenir entre 10 et 40 caractere")
+        print("❌ Erreur : le mot de passe doit contenir entre 10 et 40 caractères.")
         exit()
     else:
-        #Si la longueur et bonne on vien génerer le mot de passe
+        # Si la longueur est correcte, on génère le mot de passe
 
-        #On vien definir que le mot de passe doit avoir au minimin 1 caractere de chaque type sous forme de tableau
+        # On ajoute au minimum un caractère de chaque type
         mot_de_passe = [
             random.choice(lettres),
             random.choice(lettreMaj),
-            random.choice(chiffre),
-            random.choice(symbole)
+            random.choice(chiffres),
+            random.choice(symboles)
         ]
 
-        #On defini les caractere manquant
+        # On calcule le nombre de caractères restants à générer
         reste = longueur - 4
 
-        #On vien completer le reste par des caractere aleatoire
+        # On complète le reste du mot de passe avec des caractères aléatoires
         for _ in range(reste):
-            mot_de_passe.append(random.choice(caractere))
+            mot_de_passe.append(random.choice(caracteres))
 
-        #On melange les caractere
+        # On mélange les caractères
         random.shuffle(mot_de_passe)
 
-        #On vien stocker le mot de passe dans une variable de type texte(string)
+        # On transforme la liste en chaîne de caractères
         mot_de_passe_final = "".join(mot_de_passe)
 
-        #On vien afficher le mot de passe demandé
-        print("🔐 Voici le mot de passe:", mot_de_passe_final)
+        # On affiche le mot de passe généré
+        print("🔐 Voici le mot de passe (copiez-le si vous voulez le chiffrer) :", mot_de_passe_final)
         return mot_de_passe_final

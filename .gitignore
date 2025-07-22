@@ -4,7 +4,7 @@ __pycache__/
 *.pyo
 *.pyd
 
-# Environnements virtuels (futur?)
+# Environnements virtuels
 venv/
 env/
 .venv/
@@ -24,7 +24,8 @@ env/
 *.tmp
 
 # fichiers texte (.txt)
-*.txt
+Mes Données.txt
 
 # Fichiers de configuration sensibles (à adapter selon ton usage)
 .env
+secret.key

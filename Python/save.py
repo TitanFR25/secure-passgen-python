@@ -1,73 +1,75 @@
-from generator import generatePassword
+# Fonction pour sauvegarder les données
+def savePassword(mot_de_passe_original, mot_de_passe_crypt, est_chiffre):
 
-def savePassword(mot_de_passe_final):
-    #Stocker le mot de passe génerer
-    sauvegardePass = mot_de_passe_final
+    # Stocker les mots de passe reçus
+    sauvegardePassChiffre = mot_de_passe_crypt
+    sauvegardePass = mot_de_passe_original
 
-    #Demandez a l'utilisateur si il veut saugarder son mot de passe
-    questionSauvegardePass = input("Voulez vous enregistrer votre mot de passe ? (oui/non)")
-    #stocker la reponse dans la variable
-    reponsePass = questionSauvegardePass
+    print("Détection de cryptage...")
 
-    #Si il accepte demandez d'autre potentiel enregistrement
-    if reponsePass.lower() == "oui":
+    # Sélectionner le bon mot de passe à afficher et enregistrer
+    mot_de_passe_final = sauvegardePassChiffre if est_chiffre else sauvegardePass
 
-        #Demandez si il veut enregistrer le nom de l'application dans lequel le mot de passe sera rattaché
-        questionSauvegardeAppli = input("Voulez-vous enregistrer également le nom de l'application à qui il sera rattaché ? (oui/non)")
-        #stocker la reponse dans la variable
+    # Affichage dynamique du mot de passe selon qu'il soit chiffré ou non
+    if est_chiffre:
+        print("✅ Cryptage détecté")
+        print("🔐 Votre mot de passe chiffré :", mot_de_passe_final)
+    else:
+        print("❌ Cryptage non détecté")
+        
+    # Demander à l'utilisateur s'il souhaite enregistrer son mot de passe
+    questionSauvegardePass = input("\n💾 Voulez-vous enregistrer votre mot de passe ? (oui/non) ")
+    reponsePass = questionSauvegardePass.strip().lower()
+
+    # Si l'utilisateur accepte, demander d'autres informations potentielles
+    if reponsePass == "oui":
+
+        # Demander s'il souhaite enregistrer le nom de l'application associée
+        questionSauvegardeAppli = input("📱 Voulez-vous également enregistrer le nom de l'application liée ? (oui/non) ").strip().lower()
         reponseAppli = questionSauvegardeAppli
 
-        #Si il repond oui
-        if reponseAppli.lower() == "oui":
+        if reponseAppli == "oui":
 
-            #Demandez à l'utilisateur le nom de l'application
-            sauvegardeAppli = input("Entrer le nom de l'application :")
+            # Demander le nom de l'application
+            sauvegardeAppli = input("➡️ Entrez le nom de l'application : ").strip()
 
-            #Demandez si l'utilisateur veut aussi enregistrer ses identifiant relié a l'application
-            questionSauvegardeIdentif = input("Voulez vous enregistrer le nom de votre identifiant relié à l'appli (pseudo / email ect) ?"
-            "(oui/non) ")
-
-            #stocker la reponse dans la variable
+            # Demander si l'utilisateur veut enregistrer son identifiant lié à l'application
+            questionSauvegardeIdentif = input("👤 Voulez-vous enregistrer l'identifiant lié à l'application (pseudo, email, etc.) ? (oui/non) ").strip().lower()
             reponseIdentif = questionSauvegardeIdentif
 
-            #si il repond oui a la question
-            if reponseIdentif.lower() == "oui":
-                #demandez ses identifiant
-                SauvegardeIdentif = input("Entrer votre identifiant de votre application :")
+            if reponseIdentif == "oui":
+                # Demander l'identifiant
+                SauvegardeIdentif = input("➡️ Entrez votre identifiant : ").strip()
 
-                #Créer le fichier pour le Mot de passe,Appli,Identifiant, si il y'a une erreur la sortir
+                # Créer et écrire dans le fichier (Mot de passe, Application, Identifiant)
                 try:
-                    print("Sauvegarde en cours...")
-                    with open("Mes Données.txt","a") as f:
-                        f.write(f"Mot de passe : {sauvegardePass}\n")
+                    print("💾 Sauvegarde en cours...")
+                    with open("Mes Données.txt", "a") as f:
+                        f.write(f"Mot de passe : {mot_de_passe_final}\n")
                         f.write(f"Application : {sauvegardeAppli}\n")
                         f.write(f"Identifiant : {SauvegardeIdentif}\n")
-                        print("Sauvegarde terminé")
+                    print("✅ Sauvegarde terminée")
                 except Exception as e:
-                    print("Erreur lors de la sauvegarde", e)
+                    print("❌ Erreur lors de la sauvegarde :", e)
             else:
-                #Créer le fichier pour le Mot de passe,Appli, si il y'a une erreur la sortir
+                # Créer et écrire dans le fichier (Mot de passe, Application)
                 try:
-                    print("Sauvegarde en cours...")
-                    with open("Mes Données.txt","a") as f:
-                        f.write(f"Mot de passe : {sauvegardePass}\n")
+                    print("💾 Sauvegarde en cours...")
+                    with open("Mes Données.txt", "a") as f:
+                        f.write(f"Mot de passe : {mot_de_passe_final}\n")
                         f.write(f"Application : {sauvegardeAppli}\n")
-                        print("Sauvegarde terminé") 
+                    print("✅ Sauvegarde terminée") 
                 except Exception as e:
-                    print("Erreur lors de la sauvegarde", e)     
+                    print("❌ Erreur lors de la sauvegarde :", e)     
         else:
-            #Créer le fichier pour le Mot de passe, si il y'a une erreur la sortir
+            # Créer et écrire dans le fichier (Mot de passe uniquement)
             try:
-                print("Sauvegarde en cours...")
-                with open("Mes Données.txt","a") as f:
-                    f.write(f"Mot de passe : {sauvegardePass}\n")
-                    print("Sauvegarde terminé") 
+                print("💾 Sauvegarde en cours...")
+                with open("Mes Données.txt", "a") as f:
+                    f.write(f"Mot de passe : {mot_de_passe_final}\n")
+                print("✅ Sauvegarde terminée") 
             except Exception as e:
-                print("Erreur lors de la sauvegarde", e)   
+                print("❌ Erreur lors de la sauvegarde :", e)   
     else:
-        print("Mot de passe non sauvegardé")
+        print("❌ Mot de passe non sauvegardé")
         exit()
-#Pouvoir executer les script
-if __name__ == "__main__":
-    mot_de_passe = generatePassword()
-    savePassword(mot_de_passe)
