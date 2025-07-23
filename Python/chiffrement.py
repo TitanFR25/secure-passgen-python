@@ -29,14 +29,12 @@ def cryptPass(mot_de_passe_final):
     motDePasseFinal = mot_de_passe_final
 
     # Demander à l'utilisateur s'il souhaite chiffrer son mot de passe
-    questionPassCrypt = input("Voulez-vous chiffrer votre mot de passe ? oui/non (Recommandé) : ")
+    questionPassCrypt = input("Voulez-vous chiffrer votre mot de passe ? oui/non (Recommandé) : ").strip().lower()
 
-    # Stocker la réponse dans une variable
-    reponsePassCrypt = questionPassCrypt
-
-    if reponsePassCrypt.lower() == "oui":
+    #Si l'utilisateur dit oui alors on chiffre sinon on passe a la sauvegarde
+    if questionPassCrypt == "oui":
         try:
-            print("🔐 Cryptage en cours...")
+            print("🔐 Chiffrement en cours...")
             dir_path = os.path.dirname(os.path.abspath(__file__))
             key_path = os.path.join(dir_path, "secret.key")
 
@@ -49,11 +47,11 @@ def cryptPass(mot_de_passe_final):
 
             # Chiffrer le mot de passe avec la clé
             mot_de_passe_chiffre = cryptPassword(motDePasseFinal, key)
-            print("✅ Cryptage terminé")
+            print("✅ Chiffrement terminé")
             return mot_de_passe_chiffre, True
 
         except Exception as e:
-            print("❌ Erreur lors du cryptage :", e)
+            print("❌ Erreur lors du Chiffrement :", e)
             exit()
     else:
         # Retourner le mot de passe en clair et un indicateur de non-chiffrement
