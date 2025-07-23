@@ -1,11 +1,5 @@
 from cryptography.fernet import Fernet
-import os
-
-# Charger une clé existante
-def loadKey():
-    dir_path = os.path.dirname(os.path.abspath(__file__))
-    key_path = os.path.join(dir_path, "secret.key")
-    return open(key_path, "rb").read()
+from chiffrement import loadKey
 
 # Fonction pour déchiffrer le mot de passe reçu
 def fichierPassDecrypt(passwordCrypt: str) -> str:
