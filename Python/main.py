@@ -3,7 +3,7 @@ from generator import generatePassword
 from chiffrement import cryptPass
 from save import savePassword
 from save import recupererLeMotDePasse
-from decrypt import fichierPassDecrypt
+from dechiffrement import fichierPassDecrypt
 
 # Demander à l'utilisateur s'il possède déjà le fichier Mes Données.txt
 questionPossederFich = input("Possédez-vous déjà le fichier qui sauvegarde vos données ? (oui/non) ").strip().lower()
