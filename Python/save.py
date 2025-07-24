@@ -1,5 +1,6 @@
 import os
 from chiffrement import filePath
+import time
 
 # Déclarer les variables qui vont mener chaque fichier créé dans le dossier Python
 chemin = filePath("Mes données.txt")
@@ -9,7 +10,6 @@ def FichierIdentif(saveIdentif):
     try:
         with open(chemin, "a") as f:
             f.write(f"Identifiant : {saveIdentif}\n")
-        print("✅ Adaptation terminée")
     except Exception as e:
         exit()
 
@@ -18,7 +18,6 @@ def FichierAppli(saveAppli):
     try:
         with open(chemin, "a") as f:
             f.write(f"Application : {saveAppli}\n")
-        print("✅ Adaptation terminée")
     except Exception as e:
         exit()
 
@@ -27,6 +26,7 @@ def FichierMotDePasse(password):
     try:
         # Passer le mot de passe chiffré de l'état bytes -> str
         print("🔄 Adaptation du Chiffrement pour le fichier...")
+        time.sleep(1.5)
         if isinstance(password, bytes):
             newPassword = password.decode()
         else:
@@ -43,6 +43,8 @@ def FichierMotDePasse(password):
 # Fonction pour récupérer le mot de passe
 def recupererLeMotDePasse():
     try:
+        print("🔄 Récuperation du mot de passe...")
+        time.sleep(1)
         # Ouvrir le fichier
         with open(chemin, "r") as f:
 
@@ -53,6 +55,7 @@ def recupererLeMotDePasse():
             for ligne in reversed(lignes):
                 if ligne.startswith("Mot de passe : "):
                     password = ligne.replace("Mot de passe : ", "").strip()
+                    print("✅ Récuperation du mot de passe terminé")
                     return password      
     # Si on ne trouve pas le fichier, afficher une erreur
     except FileNotFoundError:
@@ -68,6 +71,7 @@ def savePassword(mot_de_passe_original, mot_de_passe_crypt, est_chiffre):
     sauvegardePass = mot_de_passe_original
 
     print("🔄 Détection du Chiffrement...")
+    time.sleep(1)
 
     # Sélectionner le bon mot de passe à afficher et enregistrer
     mot_de_passe_final = sauvegardePassChiffre if est_chiffre else sauvegardePass
@@ -87,6 +91,7 @@ def savePassword(mot_de_passe_original, mot_de_passe_crypt, est_chiffre):
         # Créer et appeler la fonction du fichier (Mot de passe uniquement)
         try:
             print("💾 Sauvegarde en cours...")
+            time.sleep(0.8)
             FichierMotDePasse(mot_de_passe_final)
             print("✅ Sauvegarde terminée") 
         except Exception as e:
@@ -105,6 +110,7 @@ def savePassword(mot_de_passe_original, mot_de_passe_crypt, est_chiffre):
             # Créer et appeler la fonction du fichier (Application)
             try:
                 print("💾 Sauvegarde en cours...")
+                time.sleep(0.8)
                 FichierAppli(sauvegardeAppli)
                 print("✅ Sauvegarde terminée") 
             except Exception as e:
@@ -122,6 +128,7 @@ def savePassword(mot_de_passe_original, mot_de_passe_crypt, est_chiffre):
                 # Créer et appeler la fonction du fichier (Mot de passe, Application, Identifiant)
                 try:
                     print("💾 Sauvegarde en cours...")
+                    time.sleep(0.8)
                     FichierIdentif(SauvegardeIdentif)
                     print("✅ Sauvegarde terminée")
                 except Exception as e:

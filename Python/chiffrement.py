@@ -1,5 +1,6 @@
 from cryptography.fernet import Fernet
 import os
+import time
 
 #Fonction pour définir le chemin des fichier
 def filePath(nom_fichier):
@@ -19,7 +20,7 @@ def filePath(nom_fichier):
         raise ValueError("Extension non pris en charge.")
     
     #Créer les dossier si ils existent pas
-    os.makedirs(dossier_fichier,dossier_cible, exist_ok=True)
+    os.makedirs(dossier_cible, exist_ok=True)
         
     #Retourne le chemin complet du fichier
     return os.path.join(dossier_cible, nom_fichier)
@@ -56,10 +57,13 @@ def cryptPass(mot_de_passe_final):
     if questionPassCrypt == "oui":
         try:
             print("🔐 Chiffrement en cours...")
+            time.sleep(0.5)
             chemin = filePath("secret.key")
 
             # Vérifier si la clé existe, sinon la générer
             if not os.path.exists(chemin):
+                print("Clé non trouvée géneration en cours...")
+                time.sleep(0.3)
                 generateKey()
 
             # Charger la clé

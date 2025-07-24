@@ -1,10 +1,12 @@
 from cryptography.fernet import Fernet
 from chiffrement import loadKey
+import time
 
 # Fonction pour déchiffrer le mot de passe reçu
 def fichierPassDecrypt(passwordCrypt: str) -> str:
     try:
         print("🔄 Déchiffrement en cours...")
+        time.sleep(2)
 
         # Charger la clé existante
         key = loadKey()
