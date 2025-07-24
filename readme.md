@@ -84,6 +84,7 @@ Mélange totalement aléatoire
 ✅ Possibilité de chiffrer le mot de passe
 
 ✅ Sauvegarde du mot de passe et d'autres données dans un fichier .txt
+
 ✅ Possibilité de déchiffrer le mot de passe 
 
 ##### 🛠️ Améliorations possibles (pour la suite)
