@@ -1,47 +1,30 @@
 import os
-from cryptography.fernet import Fernet
+from chiffrement import dir_path
 
 # Déclarer les variables qui vont mener chaque fichier créé dans le dossier Python
-dir_path = os.path.dirname(os.path.abspath(__file__))
-file_path = os.path.join(dir_path, "Mes Données.txt")
+dir_path()
+file_path = os.path.join(dir_path(), "Mes Données.txt")
 
 # Fonction qui va créer un fichier complet
-def creerFichierFull(password, saveAppli, saveIdentif):
+def FichierIdentif(saveIdentif):
     try:
-        # Passer le mot de passe chiffré de l'état bytes -> str
-        print("🔄 Adaptation du Chiffrement pour le fichier...")
-        if isinstance(password, bytes):
-            newPassword = password.decode()
-        else:
-            newPassword = password
         with open(file_path, "a") as f:
-            f.write(f"Mot de passe : {newPassword}\n")
-            f.write(f"Application : {saveAppli}\n")
             f.write(f"Identifiant : {saveIdentif}\n")
         print("✅ Adaptation terminée")
     except Exception as e:
-        print("❌ Erreur d'adaptation :", e)
         exit()
 
 # Fonction pour créer un fichier moyen
-def creerFichierMedium(password, saveAppli):
+def FichierAppli(saveAppli):
     try:
-        # Passer le mot de passe chiffré de l'état bytes -> str
-        print("🔄 Adaptation du Chiffrement pour le fichier...")
-        if isinstance(password, bytes):
-            newPassword = password.decode()
-        else:
-            newPassword = password
         with open(file_path, "a") as f:
-            f.write(f"Mot de passe : {newPassword}\n")
             f.write(f"Application : {saveAppli}\n")
         print("✅ Adaptation terminée")
     except Exception as e:
-        print("❌ Erreur d'adaptation :", e)
         exit()
 
 # Fonction pour créer un fichier simple
-def creerFichierPetit(password):
+def FichierMotDePasse(password):
     try:
         # Passer le mot de passe chiffré de l'état bytes -> str
         print("🔄 Adaptation du Chiffrement pour le fichier...")
@@ -94,12 +77,21 @@ def savePassword(mot_de_passe_original, mot_de_passe_crypt, est_chiffre):
         print("🔐 Votre mot de passe chiffré :", mot_de_passe_final)
     else:
         print("❌ Cryptage non détecté")
-        
+
     # Demander à l'utilisateur s'il souhaite enregistrer son mot de passe
     questionSauvegardePass = input("💾 Voulez-vous enregistrer votre mot de passe ? (oui/non) ").strip().lower()
 
     # Si l'utilisateur accepte, demander d'autres informations potentielles
     if questionSauvegardePass == "oui":
+        # Créer et appeler la fonction du fichier (Mot de passe uniquement)
+        try:
+            print("💾 Sauvegarde en cours...")
+            FichierMotDePasse(mot_de_passe_final)
+            print("✅ Sauvegarde terminée") 
+        except Exception as e:
+            print("❌ Erreur lors de la sauvegarde :", e) 
+            exit()
+            return  
 
         # Demander s'il souhaite enregistrer le nom de l'application associée
         questionSauvegardeAppli = input("📱 Voulez-vous également enregistrer le nom de l'application liée ? (oui/non) ").strip().lower()
@@ -108,6 +100,16 @@ def savePassword(mot_de_passe_original, mot_de_passe_crypt, est_chiffre):
 
             # Demander le nom de l'application
             sauvegardeAppli = input("➡️  Entrez le nom de l'application : ").strip()
+
+            # Créer et appeler la fonction du fichier (Application)
+            try:
+                print("💾 Sauvegarde en cours...")
+                FichierAppli(sauvegardeAppli)
+                print("✅ Sauvegarde terminée") 
+            except Exception as e:
+                print("❌ Erreur lors de la sauvegarde :", e) 
+                exit()
+                return    
 
             # Demander si l'utilisateur veut enregistrer son identifiant lié à l'application
             questionSauvegardeIdentif = input("👤 Voulez-vous enregistrer l'identifiant lié à l'application (pseudo, email, etc.) ? (oui/non) ").strip().lower()
@@ -119,26 +121,12 @@ def savePassword(mot_de_passe_original, mot_de_passe_crypt, est_chiffre):
                 # Créer et appeler la fonction du fichier (Mot de passe, Application, Identifiant)
                 try:
                     print("💾 Sauvegarde en cours...")
-                    creerFichierFull(mot_de_passe_final, sauvegardeAppli, SauvegardeIdentif)
+                    FichierIdentif(SauvegardeIdentif)
                     print("✅ Sauvegarde terminée")
                 except Exception as e:
                     print("❌ Erreur lors de la sauvegarde :", e)
-            else:
-                # Créer et appeler la fonction du fichier (Mot de passe, Application)
-                try:
-                    print("💾 Sauvegarde en cours...")
-                    creerFichierMedium(mot_de_passe_final, sauvegardeAppli)
-                    print("✅ Sauvegarde terminée") 
-                except Exception as e:
-                    print("❌ Erreur lors de la sauvegarde :", e)     
-        else:
-            # Créer et appeler la fonction du fichier (Mot de passe uniquement)
-            try:
-                print("💾 Sauvegarde en cours...")
-                creerFichierPetit(mot_de_passe_final)
-                print("✅ Sauvegarde terminée") 
-            except Exception as e:
-                print("❌ Erreur lors de la sauvegarde :", e)   
+                    exit()
+                    return
     else:
         print("❌ Mot de passe non sauvegardé")
         exit()

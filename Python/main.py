@@ -21,6 +21,7 @@ if questionPossederFich == "oui":
                 # Récupérer le contenu du fichier .txt
                 FichierPassCrypt = recupererLeMotDePasse()
 
+                #Si on trouve pas de mot de passe envoyer une erreur sinon affichier le mot de passe
                 if FichierPassCrypt is None:
                     print("❌ Aucun mot de passe trouvé dans le fichier.")
                     exit()
