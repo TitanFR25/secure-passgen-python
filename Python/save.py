@@ -1,29 +1,28 @@
 import os
-from chiffrement import dir_path
+from chiffrement import filePath
 
 # Déclarer les variables qui vont mener chaque fichier créé dans le dossier Python
-dir_path()
-file_path = os.path.join(dir_path(), "Mes Données.txt")
+chemin = filePath("Mes données.txt")
 
-# Fonction qui va créer un fichier complet
+# Fonction qui va écrire l'identifiant
 def FichierIdentif(saveIdentif):
     try:
-        with open(file_path, "a") as f:
+        with open(chemin, "a") as f:
             f.write(f"Identifiant : {saveIdentif}\n")
         print("✅ Adaptation terminée")
     except Exception as e:
         exit()
 
-# Fonction pour créer un fichier moyen
+# Fonction pour écrire le nom de l'appli
 def FichierAppli(saveAppli):
     try:
-        with open(file_path, "a") as f:
+        with open(chemin, "a") as f:
             f.write(f"Application : {saveAppli}\n")
         print("✅ Adaptation terminée")
     except Exception as e:
         exit()
 
-# Fonction pour créer un fichier simple
+# Fonction pour créer un fichier simple et écrire le mot de passe
 def FichierMotDePasse(password):
     try:
         # Passer le mot de passe chiffré de l'état bytes -> str
@@ -32,7 +31,9 @@ def FichierMotDePasse(password):
             newPassword = password.decode()
         else:
             newPassword = password
-        with open(file_path, "a") as f:
+
+        #Créer un fichier .txt et écrire le mot de passe
+        with open(chemin, "a") as f:
             f.write(f"Mot de passe : {newPassword}\n")
         print("✅ Adaptation terminée")
     except Exception as e:
@@ -43,7 +44,7 @@ def FichierMotDePasse(password):
 def recupererLeMotDePasse():
     try:
         # Ouvrir le fichier
-        with open(file_path, "r") as f:
+        with open(chemin, "r") as f:
 
             # Lire les lignes
             lignes = f.readlines()

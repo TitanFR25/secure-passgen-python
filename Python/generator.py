@@ -13,7 +13,6 @@ def generatePassword():
         print("❌ Erreur : le mot de passe doit contenir entre 10 et 40 caractères.")
         exit()
         
-    
     # On définit les types de caractères à utiliser
     lettres = "azertyuiopqsdfghjklmwxcvbn"
     lettreMaj = lettres.upper()
@@ -34,7 +33,7 @@ def generatePassword():
      # On calcule le nombre de caractères restants à générer
     reste = longueur - 4
 
-    #stocker le tableau du mot de passe dans la variable pour un gain de ressource minime
+    #Stocker le tableau du mot de passe dans la variable pour un gain de ressource minime
     motDePasse = mot_de_passe
 
     # On complète le reste du mot de passe avec des caractères aléatoires

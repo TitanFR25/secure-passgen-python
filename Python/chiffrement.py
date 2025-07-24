@@ -1,26 +1,43 @@
 from cryptography.fernet import Fernet
 import os
 
-#fonction pour définir le chemin du dossier
-def dir_path():
-    return os.path.dirname(os.path.abspath(__file__))
+#Fonction pour définir le chemin des fichier
+def filePath(nom_fichier):
+    #Dossier python
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+
+    #Remonter d'un cran (../) et aller dans le dossier Fichier
+    dossier_fichier = os.path.abspath(os.path.join(base_dir, ".." , "Fichier"))
+
+    #Définir le chemin du fichier en fonction de l'entension
+    if nom_fichier.endswith(".key"):
+        dossier_cible = os.path.join(dossier_fichier, "SecretFile")
+    elif nom_fichier.endswith(".txt"):
+        dossier_cible = os.path.join(dossier_fichier, "TextFile")
+    else:
+        exit()
+        raise ValueError("Extension non pris en charge.")
+    
+    #Créer le dossier si il existe pas
+    os.makedirs(dossier_cible, exist_ok=True)
+        
+    #Retourne le chemin complet du fichier
+    return os.path.join(dossier_cible, nom_fichier)
 
 # Fonction pour générer une clé et la sauvegarder dans un fichier
 def generateKey():
     key = Fernet.generate_key()
 
     # Générer le fichier dans le dossier du script
-    dir_path()
-    key_path = os.path.join(dir_path(), "secret.key")
-    with open(key_path, "wb") as key_file:
+    chemin = filePath("secret.key")
+    with open(chemin, "wb") as key_file:
         key_file.write(key)
     return key
 
 # Fonction pour charger une clé existante
 def loadKey():
-    dir_path()
-    key_path = os.path.join(dir_path(), "secret.key")
-    return open(key_path, "rb").read()
+    chemin = filePath("secret.key")
+    return open(chemin, "rb").read()
 
 # Fonction pour chiffrer un mot de passe
 def cryptPassword(password: str, key: bytes) -> bytes:
@@ -39,11 +56,10 @@ def cryptPass(mot_de_passe_final):
     if questionPassCrypt == "oui":
         try:
             print("🔐 Chiffrement en cours...")
-            dir_path()
-            key_path = os.path.join(dir_path(), "secret.key")
+            chemin = filePath("secret.key")
 
             # Vérifier si la clé existe, sinon la générer
-            if not os.path.exists(key_path):
+            if not os.path.exists(chemin):
                 generateKey()
 
             # Charger la clé
