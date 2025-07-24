@@ -85,6 +85,8 @@ Mélange totalement aléatoire
 
 ✅ Sauvegarde du mot de passe et d'autres données dans un fichier .txt
 
+✅ Possibilité de déchiffrer le mot de passe 
+
 ##### 🛠️ Améliorations possibles (pour la suite)
 
 1. Ajouter une option pour choisir les types de caractères inclus (ex : exclure les symboles)
