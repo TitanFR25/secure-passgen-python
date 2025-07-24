@@ -23,9 +23,8 @@ env/
 *.bak
 *.tmp
 
-# fichiers texte (.txt)
-Mes Données.txt
+#Dossier de fichier
+Fichier
 
 # Fichiers de configuration sensibles (à adapter selon ton usage)
 .env
-secret.key

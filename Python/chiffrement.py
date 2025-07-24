@@ -18,8 +18,8 @@ def filePath(nom_fichier):
         exit()
         raise ValueError("Extension non pris en charge.")
     
-    #Créer le dossier si il existe pas
-    os.makedirs(dossier_cible, exist_ok=True)
+    #Créer les dossier si ils existent pas
+    os.makedirs(dossier_fichier,dossier_cible, exist_ok=True)
         
     #Retourne le chemin complet du fichier
     return os.path.join(dossier_cible, nom_fichier)
