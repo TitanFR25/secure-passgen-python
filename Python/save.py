@@ -1,4 +1,3 @@
-import os
 from chiffrement import filePath
 import time
 
@@ -24,44 +23,21 @@ def FichierAppli(saveAppli):
 # Fonction pour créer un fichier simple et écrire le mot de passe
 def FichierMotDePasse(password):
     try:
-        # Passer le mot de passe chiffré de l'état bytes -> str
-        print("🔄 Adaptation du Chiffrement pour le fichier...")
-        time.sleep(1.5)
+         # Passer le mot de passe chiffré de l'état bytes -> str
         if isinstance(password, bytes):
+            print("🔄 Adaptation du Chiffrement pour le fichier...")
+            time.sleep(1.5)
             newPassword = password.decode()
+            print("✅ Adaptation terminée")
         else:
             newPassword = password
 
         #Créer un fichier .txt et écrire le mot de passe
         with open(chemin, "a") as f:
             f.write(f"Mot de passe : {newPassword}\n")
-        print("✅ Adaptation terminée")
     except Exception as e:
         print("❌ Erreur d'adaptation :", e)
         exit()
-
-# Fonction pour récupérer le mot de passe
-def recupererLeMotDePasse():
-    try:
-        print("🔄 Récuperation du mot de passe...")
-        time.sleep(1)
-        # Ouvrir le fichier
-        with open(chemin, "r") as f:
-
-            # Lire les lignes
-            lignes = f.readlines()
-
-            # Lire les lignes jusqu'à trouver une ligne qui commence par "Mot de passe :"
-            for ligne in reversed(lignes):
-                if ligne.startswith("Mot de passe : "):
-                    password = ligne.replace("Mot de passe : ", "").strip()
-                    print("✅ Récuperation du mot de passe terminé")
-                    return password      
-    # Si on ne trouve pas le fichier, afficher une erreur
-    except FileNotFoundError:
-        print("❌ Fichier introuvable")
-        exit()
-        return None
 
 # Fonction pour sauvegarder les données
 def savePassword(mot_de_passe_original, mot_de_passe_crypt, est_chiffre):

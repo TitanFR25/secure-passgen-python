@@ -1,9 +1,15 @@
 # Import des modules nécessaires pour le programme
 from generator import generatePassword
-from chiffrement import cryptPass
+from chiffrement import cryptPass 
+from chiffrement import cryptPassword
+from chiffrement import filePath
 from save import savePassword
-from save import recupererLeMotDePasse
+from mdp import recupererLeMotDePasse
 from dechiffrement import fichierPassDecrypt
+from mdp import remplacerPass
+import time
+
+chemin = filePath("secret.key")
 
 # Demander à l'utilisateur s'il possède déjà le fichier Mes Données.txt
 questionPossederFich = input("Possédez-vous déjà le fichier qui sauvegarde vos données ? (oui/non) ").strip().lower()
@@ -19,20 +25,35 @@ if questionPossederFich == "oui":
         if questionDecryptPass == "oui":
             if __name__ == "__main__":
                 # Récupérer le contenu du fichier .txt
-                FichierPassCrypt = recupererLeMotDePasse()
+                fichierPassCrypt = recupererLeMotDePasse()
 
                 #Si on trouve pas de mot de passe envoyer une erreur sinon affichier le mot de passe
-                if FichierPassCrypt is None:
+                if fichierPassCrypt is None:
                     print("❌ Aucun mot de passe trouvé dans le fichier.")
                     exit()
                 else:
-                    MotDePasseDecrypt = fichierPassDecrypt(FichierPassCrypt)
+                    MotDePasseDecrypt = fichierPassDecrypt(fichierPassCrypt)
                     print("🔓 Voici votre mot de passe :", MotDePasseDecrypt)
         else:
             exit()
     else:
-        # À venir...
-        exit()
+        questionCryptNow = input("Voulez vous le chiffrer ?").strip().lower()
+
+        if questionCryptNow == "oui":
+
+            #récuperer le mot de passe
+            fichierPass = recupererLeMotDePasse()
+
+            print("🔄 Chiffrement en cours...")
+            time.sleep(0.5)
+
+            #Chiffrer le mot de passe 
+            PassCryptNow = cryptPassword(fichierPass)
+            #Remplacer le mot de passe
+            newPass = remplacerPass(PassCryptNow)
+            print("✅ Chiffrement terminé")
+        else:
+            exit()
 else:
     # Point d'entrée du script
     if __name__ == "__main__":

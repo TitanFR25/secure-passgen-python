@@ -41,7 +41,9 @@ def loadKey():
     return open(chemin, "rb").read()
 
 # Fonction pour chiffrer un mot de passe
-def cryptPassword(password: str, key: bytes) -> bytes:
+def cryptPassword(password: str) -> bytes:
+    key = generateKey()
+    loadKey()
     f = Fernet(key)
     return f.encrypt(password.encode())
 
@@ -58,19 +60,9 @@ def cryptPass(mot_de_passe_final):
         try:
             print("🔐 Chiffrement en cours...")
             time.sleep(0.5)
-            chemin = filePath("secret.key")
 
-            # Vérifier si la clé existe, sinon la générer
-            if not os.path.exists(chemin):
-                print("Clé non trouvée géneration en cours...")
-                time.sleep(0.3)
-                generateKey()
-
-            # Charger la clé
-            key = loadKey()
-
-            # Chiffrer le mot de passe avec la clé
-            mot_de_passe_chiffre = cryptPassword(motDePasseFinal, key)
+            # Chiffrer le mot de passe
+            mot_de_passe_chiffre = cryptPassword(motDePasseFinal)
             print("✅ Chiffrement terminé")
             return mot_de_passe_chiffre, True
 
