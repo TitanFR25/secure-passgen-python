@@ -49,8 +49,9 @@ if questionPossederFich == "oui":
 
             #Chiffrer le mot de passe 
             PassCryptNow = cryptPassword(fichierPass)
+            
             #Remplacer le mot de passe
-            newPass = remplacerPass(PassCryptNow)
+            remplacerPass(PassCryptNow)
             print("✅ Chiffrement terminé")
         else:
             exit()
