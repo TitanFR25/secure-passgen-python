@@ -1,12 +1,12 @@
 # Import des modules nécessaires pour le programme
-from generator import generatePassword
-from chiffrement import cryptPass 
-from chiffrement import cryptPassword
-from chiffrement import filePath
-from save import savePassword
-from mdp import recupererLeMotDePasse
-from dechiffrement import fichierPassDecrypt
-from mdp import remplacerPass
+from back.generator import generate_password
+from back.chiffrement import cryptPass 
+from back.chiffrement import cryptPassword
+from back.chiffrement import filePath
+from back.save import savePassword
+from back.mdp import recupererLeMotDePasse
+from back.dechiffrement import fichierPassDecrypt
+from back.mdp import remplacerPass
 import time
 
 chemin = filePath("secret.key")
@@ -59,7 +59,7 @@ else:
     # Point d'entrée du script
     if __name__ == "__main__":
         # Génération du mot de passe
-        mot_de_passe = generatePassword()
+        mot_de_passe = generate_password()
 
         # Demander à l'utilisateur s'il souhaite chiffrer le mot de passe et le chiffrer si besoin
         mot_de_passe_resultat, est_chiffre = cryptPass(mot_de_passe)
