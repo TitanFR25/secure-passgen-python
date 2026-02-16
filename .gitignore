@@ -26,5 +26,8 @@ env/
 #Dossier de fichier
 Fichier
 
-# Fichiers de configuration sensibles (à adapter selon ton usage)
+# Fichiers de configuration sensibles 
 .env
+
+#fichier inutile a envoiyer
+__init__.py

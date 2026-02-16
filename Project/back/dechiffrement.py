@@ -1,5 +1,5 @@
 from cryptography.fernet import Fernet
-from Python.back.chiffrement import loadKey
+from Project.back.chiffrement import loadKey
 import time
 
 # Fonction pour déchiffrer le mot de passe reçu
