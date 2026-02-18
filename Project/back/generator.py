@@ -1,14 +1,6 @@
 # back.py
 import random
-import unicodedata
 
-# Normalisation utile si tu veux traiter des réponses texte ailleurs
-def normalize_text(s: str) -> str:
-    if s is None:
-        return ""
-    s = s.strip().lower()
-    s = ''.join(ch for ch in unicodedata.normalize('NFD', s) if unicodedata.category(ch) != 'Mn')
-    return s
 
 # Fonction de génération (adaptée de ton code, sans input/print/exit)
 def generate_password(length: int = 12) -> str:

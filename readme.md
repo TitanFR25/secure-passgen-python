@@ -91,21 +91,19 @@ Mélange totalement aléatoire
 
 1. Ajouter une option pour choisir les types de caractères inclus (ex : exclure les symboles)
 
-2. Proposer une interface graphique simple
+2. Proposer une interface graphique simple ✅
 
-3. Enregistrer les mots de passe de façon chiffrée ✅
+3. Enregistrer les mots de passe de façon chiffrée ✅ (Présente mais non implémenté dans la version graphique)
 
 4. Ajouter une fonctionnalité de vérification de robustesse des mots de passe
 
 ##### 🔒 Attention à la sécurité
 
-1. Si vous choisissez de sauvegarder votre mot de passe dans un fichier .txt, faites attention à l’endroit où vous le stockez.
+1. Si vous choisissez de sauvegarder votre mot de passe dans le fichier .txt, faites attention à l’endroit où vous le stockez.
 
 2. Ne partagez pas ces fichiers sur des plateformes publiques ou avec des personnes non autorisées.
 
-3. Pour un usage sérieux, préférez un gestionnaire de mots de passe spécialisé (comme Bitwarden, KeePass, 1Password).
-
-4. Ce programme est un projet pédagogique, il ne doit pas être utilisé pour stocker des données sensibles en production.
+3. Cette outil ne gére pas les mot de passe, le seule objectif est de générer des mot de passe complexe simplement et rapidement
 
 Merci d’avoir pris le temps de découvrir ce projet !
 N’hésitez pas à le tester et à me faire vos retours.
