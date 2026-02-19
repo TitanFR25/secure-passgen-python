@@ -35,7 +35,7 @@ QUESTIONS = {
         "no": "start"
     },
     "show_password": {
-        "text": "Mot de passe généré : {password}\nVeux-tu en générer un autre ?",
+        "text": "Mot de passe généré : {password}\nVoulez-vous en générer un autre ?",
         "yes": "ask_length",
         "no": "ask_save"
     },

@@ -1,60 +1,52 @@
 # Front/graphique.py
-import tkinter as tk  # Import de Tkinter pour créer l'interface graphique
-from tkinter import ttk, messagebox  # Import des widgets ttk et boîtes de dialogue
-import sys, os  # Modules pour manipuler les chemins et le système
+import tkinter as tk
+from tkinter import ttk, messagebox
+import sys, os
 
-# Ajoute le dossier parent au path pour pouvoir importer les modules du projet
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-# Import des modules internes du projet
 from Front.question import QUESTIONS, show_question, next_question
 from Front.length import validate_length
 from back.generator import generate_password
 from Front.animation import animate_text
 
 # -------- Variables globales --------
-current_state = "start"  # État initial de l'application
-current_length = 10      # Longueur par défaut du mot de passe
-BG = "#111827"           # Couleur de fond principale
+current_state = "start"
+current_length = 10
+BG = "#111827"
 
 # -------- Fenêtre principale --------
-root = tk.Tk()                        # Création de la fenêtre principale
-root.title("SecurePass")              # Titre de la fenêtre
-root.geometry("640x350")              # Taille initiale (largeur x hauteur)
-root.configure(bg=BG)                 # Couleur de fond de la fenêtre
+root = tk.Tk()
+root.title("SecurePass")
+root.geometry("640x350")
+root.configure(bg=BG)
+root.minsize(640, 350)
 
-# ---------- Taille minimale ----------
-root.minsize(640, 350)  # Empêche de réduire la fenêtre en dessous de cette taille
-
-# -------- Iconbitmap --------
-base_dir = os.path.dirname(__file__)          # Récupère le dossier courant
-icon_path = os.path.join(base_dir, "UI", "padlock.ico")  # Chemin de l'icône
+base_dir = os.path.dirname(__file__)
+icon_path = os.path.join(base_dir, "UI", "padlock.ico")
 if os.path.exists(icon_path):
-    root.iconbitmap(icon_path)  # Définit l'icône de la fenêtre si elle existe
+    root.iconbitmap(icon_path)
 
 # -------- Splash screen --------
-splash_frame = tk.Frame(root, bg=BG)  # Frame pour le splash screen
-splash_frame.pack(fill="both", expand=True)  # Remplit toute la fenêtre
+splash_frame = tk.Frame(root, bg=BG)
+splash_frame.pack(fill="both", expand=True)
 
-# Label principal du splash
 title_label_splash = tk.Label(
-    splash_frame, 
+    splash_frame,
     text="SecurePass",
     font=("Segoe UI", 36, "bold"),
     bg=BG, fg="white"
 )
-title_label_splash.pack(expand=True)  # Centré verticalement et horizontalement
+title_label_splash.pack(expand=True)
 
-# Label pour l'animation de chargement
 loading_label = tk.Label(
-    splash_frame, 
+    splash_frame,
     text="Chargement",
     font=("Segoe UI", 14),
     bg=BG, fg="white"
 )
-loading_label.pack(pady=(0, 50))  # Marge sous le label
+loading_label.pack(pady=(0, 50))
 
-# Lancer l'animation du texte de chargement après 100ms
 root.after(100, lambda: animate_text(
     loading_label,
     base_text="Chargement",
@@ -63,89 +55,81 @@ root.after(100, lambda: animate_text(
     end_text="Chargement terminé !"
 ))
 
-# -------- Lancer l'interface principale --------
+# -------- Interface principale --------
 def show_main_interface():
-    """Affiche l'interface principale après le splash screen"""
     global current_state, current_length
 
-    splash_frame.destroy()  # Supprime le splash screen
+    splash_frame.destroy()
 
-    # Frame principal pour l'interface après le splash
     root_frame = tk.Frame(root, bg=BG)
-    root_frame.pack(fill="both", expand=True)  # Remplit toute la fenêtre
+    root_frame.pack(fill="both", expand=True)
 
-    # ---------- Widgets principaux ----------
     title_label = tk.Label(
-        root_frame, 
-        text="SecurePass", 
+        root_frame,
+        text="SecurePass",
         font=("Segoe UI", 36, "bold"),
-        bg=BG, 
+        bg=BG,
         fg="white"
     )
-    title_label.pack(pady=20)  # Marge verticale
+    title_label.pack(pady=20)
 
-    separator = tk.Frame(root_frame, bg="#374151", height=2, width=400)  # Ligne séparatrice
-    separator.pack(pady=(0,20))  # Marge sous la ligne
+    separator = tk.Frame(root_frame, bg="#374151", height=2, width=400)
+    separator.pack(pady=(0, 20))
 
     center_frame = tk.Frame(root_frame, bg=BG)
-    center_frame.pack(expand=True, fill="x")  # Frame central qui prend toute la largeur
+    center_frame.pack(expand=True, fill="x")
 
-    # ---------- Question label adaptable ----------
     question_label = tk.Label(
-        center_frame, 
-        text="", 
-        font=("Segoe UI",16),
-        bg=BG, fg="white", 
-        wraplength=root.winfo_width() - 40,  # Texte se wrap dynamiquement
+        center_frame,
+        text="",
+        font=("Segoe UI", 16),
+        bg=BG,
+        fg="white",
+        wraplength=root.winfo_width() - 40,
         justify="center"
     )
-    question_label.pack(pady=10, fill="x")  # Remplit horizontalement
+    question_label.pack(pady=10, fill="x")
 
-    # Frame pour les boutons Oui/Non
     buttons_frame = tk.Frame(center_frame, bg=BG)
     buttons_frame.pack(pady=10)
 
-    # Entry pour saisir la longueur du mot de passe
-    entry = ttk.Entry(center_frame, width=45, font=("Segoe UI",14))
+    entry = ttk.Entry(center_frame, width=45, font=("Segoe UI", 14))
     entry.pack()
-    entry.pack_forget()  # Caché par défaut
+    entry.pack_forget()
 
-    # Bouton Oui
     yes_button = tk.Button(
-        buttons_frame, 
-        text="Oui", 
-        font=("Segoe UI",14),
-        width=10, 
-        bg="#4CAF50", 
-        fg="white", 
-        activebackground="#45a049",
+        buttons_frame,
+        text="Oui",
+        font=("Segoe UI", 14),
+        width=15,
+        bg="#4CAF50",
+        fg="white",
         command=lambda: handle_answer("yes")
     )
-    yes_button.grid(row=0, column=0, padx=20)  # Position dans la grille
+    yes_button.grid(row=0, column=0, padx=20)
 
-    # Bouton Non
     no_button = tk.Button(
-        buttons_frame, 
-        text="Non", 
-        font=("Segoe UI",14),
-        width=10, 
-        bg="#F44336", 
-        fg="white", 
-        activebackground="#e53935",
+        buttons_frame,
+        text="Non",
+        font=("Segoe UI", 14),
+        width=15,
+        bg="#F44336",
+        fg="white",
         command=lambda: handle_answer("no")
     )
     no_button.grid(row=0, column=1, padx=20)
 
-    # ---------- Fonction de scaling ----------
-    import tkinter.font as tkFont  # Import pour manipuler les fonts
+        # ---------- Fonction de scaling ----------
+    import tkinter.font as tkFont
 
     def scale_widgets(event=None):
         """Redimensionne dynamiquement tous les widgets selon la taille de la fenêtre"""
-        screen_width = root.winfo_width()  # Largeur actuelle
-        screen_height = root.winfo_height()  # Hauteur actuelle
+
+        screen_width = root.winfo_width()
+        screen_height = root.winfo_height()
 
         # ---------- Titre ----------
-        base_title_size = min(max(screen_height // 12, 36), 80)  # Taille proportionnelle
+        base_title_size = min(max(screen_height // 12, 36), 80)
         f_title = tkFont.Font(font=title_label['font'])
         f_title.configure(size=base_title_size)
         title_label.config(font=f_title)
@@ -155,88 +139,140 @@ def show_main_interface():
         f_question = tkFont.Font(font=question_label['font'])
         f_question.configure(size=question_size)
         question_label.config(font=f_question)
-        question_label.config(wraplength=screen_width - 40)  # Ajuste le wraplength
+        question_label.config(wraplength=screen_width - 40)
 
         # ---------- Boutons et Entry ----------
         widget_size = min(max(screen_height // 50, 12), 18)
+
         for w in [yes_button, no_button, entry]:
             f = tkFont.Font(font=w['font'])
             f.configure(size=widget_size)
             w.config(font=f)
 
-        # ---------- Paddings ----------
+        # ---------- Paddings dynamiques ----------
         title_label.pack_configure(pady=min(screen_height // 40, 50))
         question_label.pack_configure(pady=min(screen_height // 60, 25))
-        yes_button.grid_configure(padx=min(screen_width // 50, 30), pady=min(screen_height // 120, 10))
-        no_button.grid_configure(padx=min(screen_width // 50, 30), pady=min(screen_height // 120, 10))
+
+        try:
+            yes_button.grid_configure(
+                padx=min(screen_width // 50, 30),
+                pady=min(screen_height // 120, 10)
+            )
+            no_button.grid_configure(
+                padx=min(screen_width // 50, 30),
+                pady=min(screen_height // 120, 10)
+            )
+        except:
+            pass
 
         # ---------- Largeur Entry ----------
         entry.config(width=min(max(25, screen_width // 35), 50))
 
-    # ---------- Lier scaling à redimension ----------
-    root.bind("<Configure>", scale_widgets)
+    # ---------- Lier scaling ----------
+    root.after(50, lambda: root.bind("<Configure>", scale_widgets))
 
-    # ---------- Lancer la question initiale ----------
-    show_question(
-        current_state, 
-        current_length, 
-        question_label, 
-        entry,
-        buttons_frame, 
-        generate_password, 
-        validate_length
-    )
+    # -------- MENU PRINCIPAL --------
+    def show_main_menu():
+        global current_state
+        current_state = "main_menu"
 
-    # ---------- Fonction utilitaire pour mettre à jour la question à tout moment ----------
-    def update_question(text):
-        """Met à jour le texte de question et ajuste le wraplength"""
-        question_label.config(text=text)
-        question_label.config(wraplength=root.winfo_width() - 40)
-        question_label.update_idletasks()  # Force le recalcul de la taille
+        question_label.config(
+            text="Bienvenue sur SecurePass\n\nVeuillez sélectionner une option."
+        )
 
-    # -------- Fonctions de gestion --------
+        entry.pack_forget()
+
+        buttons_frame.pack(pady=10)
+
+        # On remet bien les deux boutons dans la grille
+        yes_button.grid(row=0, column=0, padx=20)
+        no_button.grid(row=0, column=1, padx=20)
+
+        yes_button.config(
+            text="Première utilisation",
+            command=start_first_time_flow
+        )
+
+        no_button.config(
+            text="Utilisateur existant",
+            command=start_standard_flow
+        )
+
+    # -------- FLOW UTILISATEUR STANDARD --------
+    def start_standard_flow():
+        global current_state
+        current_state = "ask_length"
+
+        yes_button.config(
+            text="Oui",
+            command=lambda: handle_answer("yes")
+        )
+
+        no_button.config(
+            text="Non",
+            command=lambda: handle_answer("no")
+        )
+
+        show_question(
+            current_state,
+            current_length,
+            question_label,
+            entry,
+            buttons_frame,
+            generate_password,
+            validate_length
+        )
+
+    # -------- FLOW PREMIÈRE UTILISATION --------
+    def start_first_time_flow():
+        global current_state
+        current_state = "onboarding"
+
+        question_label.config(
+            text="Bienvenue \n\nSecurePass va vous guider pour créer votre premier mot de passe sécurisé.\n\nCommençons par choisir la longueur."
+        )
+
+        entry.pack_forget()
+
+        yes_button.config(
+            text="Commencer",
+            command=start_standard_flow
+        )
+
+        no_button.grid_remove()
+
+    # -------- GESTION DES RÉPONSES --------
     def handle_answer(answer):
-        """Gère les réponses Oui/Non aux questions"""
         global current_state, current_length
 
-        # Si l'état actuel demande de saisir une longueur, ignorer les boutons Oui/Non
         if current_state == "ask_length":
             return
 
-        # Détermine le prochain état en fonction de la réponse donnée
         next_state_val = next_question(current_state, answer)
-        if next_state_val:
-            current_state = next_state_val  # Met à jour l'état courant
 
-            # Affiche la question correspondante au nouvel état
+        if next_state_val:
+            current_state = next_state_val
             show_question(
-                current_state, 
-                current_length, 
-                question_label, 
-                entry, 
-                buttons_frame, 
-                generate_password, 
+                current_state,
+                current_length,
+                question_label,
+                entry,
+                buttons_frame,
+                generate_password,
                 validate_length
             )
 
+    # -------- VALIDATION LONGUEUR --------
     def handle_length():
-        """Gère la validation de la longueur saisie par l'utilisateur"""
         global current_state, current_length
 
-        # Récupère la valeur entrée par l'utilisateur
         raw = entry.get()
-
-        # Valide la longueur avec la fonction du module length.py
         next_state_val, length = validate_length(raw, current_length)
 
-        if next_state_val == "yes":  # La saisie est valide
-            current_length = length  # Met à jour la longueur choisie
-            current_state = "show_password"  # Passe à l'état affichage mot de passe
-
-            # Cache l'entrée pendant la génération
+        if next_state_val == "yes":
+            current_length = length
             entry.pack_forget()
 
-            # Lance l'animation "Génération en cours..."
             animate_text(
                 question_label,
                 base_text="Génération en cours",
@@ -244,14 +280,9 @@ def show_main_interface():
                 dots_interval=300,
             )
 
-            # Fonction appelée après la fin visuelle
             def after_animation():
                 global current_state
                 current_state = "show_password"
-
-                # Réactive boutons
-                yes_button.config(state="normal")
-                no_button.config(state="normal")
 
                 show_question(
                     current_state,
@@ -263,45 +294,20 @@ def show_main_interface():
                     validate_length
                 )
 
-            # On attend légèrement plus que l'animation
             root.after(1600, after_animation)
 
-        elif next_state_val == "no":  # La saisie est invalide mais pas une erreur critique
-            current_state = "start"  # Retour à l'état initial
+        elif next_state_val == "no":
             messagebox.showinfo("Information", "Retour au menu principal.")
-            show_question(
-                current_state,
-                current_length,
-                question_label,
-                entry,
-                buttons_frame,
-                generate_password,
-                validate_length
-            )
+            show_main_menu()
 
-        elif next_state_val == "error":  # Erreur critique dans la saisie
+        elif next_state_val == "error":
             messagebox.showerror("Erreur", "La longueur doit être un nombre entre 10 et 40")
 
-    # Lie la touche Entrée de l'Entry à la fonction handle_length
     entry.bind("<Return>", lambda e: handle_length())
 
-    # -------- Afficher la première question --------
-    # On appelle show_question une première fois pour démarrer l'application
-    show_question(
-        current_state, 
-        current_length, 
-        question_label, 
-        entry, 
-        buttons_frame, 
-        generate_password, 
-        validate_length
-    )
+    # 👉 On lance maintenant le menu principal au lieu de show_question()
+    show_main_menu()
 
-# -------- Lancer main interface après 1.5s --------
-root.after(
-    1500, 
-    show_main_interface
-)
-
-# -------- Lancer application --------
-root.mainloop()  # Démarre la boucle principale Tkinter
+# -------- Lancer main interface --------
+root.after(1500, show_main_interface)
+root.mainloop()
